@@ -15,7 +15,7 @@ yt = YouTube(url)
 yt.register_on_progress_callback(on_download_progress)
 video = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
 
-print("Loading...")
+print(f"Loading... {yt.title}")
 main_path = os.path.expanduser(os.getenv('USERPROFILE')).replace('\\', '/')
 user_path = f"{main_path}/Downloads/{yt.author}"
 video.download(output_path=user_path)
