@@ -1,4 +1,5 @@
 import os
+import sys
 
 from pytube import YouTube
 
@@ -8,7 +9,9 @@ url = 'https://www.youtube.com/watch?v=U0kCRbSyjmo'
 def on_download_progress(stream, chunk, bytes_remaining):
     bytes_downloaded = stream.filesize - bytes_remaining
     percentage = bytes_downloaded * 100 / stream.filesize
-    print(f'Downloading... {int(percentage)}%')
+    sys.stdout.write('\r')
+    sys.stdout.write(f'Downloading... {int(percentage)}%')
+    sys.stdout.flush()
 
 
 yt = YouTube(url)
