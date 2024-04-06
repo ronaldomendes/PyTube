@@ -62,7 +62,7 @@ if download:
 
         video.download(output_path=user_path)
     except Exception as e:
-        st.error(e, getattr(e, 'message', repr(e)))
+        st.error(f'Error: {e}')
     time.sleep(2)
     progress_bar.empty()
     path_container.empty()
