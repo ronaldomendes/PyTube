@@ -4,7 +4,7 @@ import time
 
 import streamlit as st
 import streamlit.components.v1 as com
-from pytube import YouTube
+from pytubefix import YouTube
 from streamlit import runtime
 from streamlit.web import cli
 
@@ -55,16 +55,16 @@ def main():
         path_container = st.empty()
 
         try:
-            video = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+            video = yt.streams.filter(progressive=True, file_extension='mp4').get_highest_resolution()
             main_path = os.path.expanduser(os.getenv('USERPROFILE')).replace('\\', '/')
-            user_path = f"{main_path}/Downloads/{yt.author}"
+            user_path = f"{main_path}/Downloads/Videos/{yt.author}"
 
             with path_container.container():
                 st.success(f"Saving your video in: {user_path}")
 
             video.download(output_path=user_path)
         except Exception as e:
-            st.error(f'Error: {e}')
+            st.error(str(e))
         time.sleep(2)
         progress_bar.empty()
         path_container.empty()
